@@ -1,5 +1,8 @@
 package com.cgmaniac;
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 1000,HEIGHT = WIDTH/12*9;
@@ -36,7 +39,7 @@ public class Game extends Canvas implements Runnable{
 
         while(isRunning){
             boolean render = false;
-            double startTime = 0;
+            double startTime = System.nanoTime()/1000000000.0;
             double passedTime = startTime - lastTime;
 
             lastTime = startTime;
@@ -71,7 +74,23 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void render() {
+        BufferStrategy bs = this.getBufferStrategy(); 
 
+        if(bs == null){
+            this.createBufferStrategy(3);
+            return;
+        }
+
+        Graphics g = bs.getDrawGraphics();
+
+        g.setColor(Color.black);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        // Things to render start here
+
+
+        // Things to render ends here
+        g.dispose();
+        bs.show();
     }
 
     private void ticks() {
