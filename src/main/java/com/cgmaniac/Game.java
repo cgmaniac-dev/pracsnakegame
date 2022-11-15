@@ -8,7 +8,7 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 1000,HEIGHT = WIDTH/12*9;
     private Thread thread;
     private boolean isRunning;
-    private double secondsPerFrame = 1.0/60.0;
+    private double secondsPerFrame = 1.0/12.0;
     private Snake snake;
 
     public Game() {
@@ -54,7 +54,7 @@ public class Game extends Canvas implements Runnable{
 
                 ticks();
                 if(frameCounter>=1.0){
-                    // System.out.println("FPS:"+frames);
+                    System.out.println("FPS:"+frames);
                     frames = 0;
                     frameCounter=0;
                 }
