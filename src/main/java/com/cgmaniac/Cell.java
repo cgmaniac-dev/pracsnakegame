@@ -52,6 +52,11 @@ public class Cell {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Cell [position=" + position + ", size=" + size + "]";
+    }
     
     
 }

@@ -8,7 +8,7 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 1000,HEIGHT = WIDTH/12*9;
     private Thread thread;
     private boolean isRunning;
-    private double secondsPerFrame = 1.0/12.0;
+    private double secondsPerFrame = 1.0/3.0;
     private Snake snake;
 
     public Game() {
@@ -79,7 +79,7 @@ public class Game extends Canvas implements Runnable{
         BufferStrategy bs = this.getBufferStrategy(); 
 
         if(bs == null){
-            this.createBufferStrategy(3);
+            this.createBufferStrategy(2);
             return;
         }
 
@@ -96,7 +96,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void ticks() {
-
+        snake.ticks();
     }
 
     public static void main(String[] args) {
