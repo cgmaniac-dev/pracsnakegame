@@ -9,6 +9,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     private boolean isRunning;
     private double secondsPerFrame = 1.0/60.0;
+    private Snake snake;
 
     public Game() {
         new Window(WIDTH, HEIGHT, "Snake game", this);
@@ -18,6 +19,7 @@ public class Game extends Canvas implements Runnable{
         thread = new Thread(this);
         thread.start();
         isRunning = true;
+        snake = new Snake(new Position(100, 100),20);
     }
 
     public synchronized void stop(){
@@ -52,7 +54,7 @@ public class Game extends Canvas implements Runnable{
 
                 ticks();
                 if(frameCounter>=1.0){
-                    System.out.println("FPS:"+frames);
+                    // System.out.println("FPS:"+frames);
                     frames = 0;
                     frameCounter=0;
                 }
@@ -86,7 +88,7 @@ public class Game extends Canvas implements Runnable{
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         // Things to render start here
-
+        snake.render(g);
 
         // Things to render ends here
         g.dispose();
