@@ -3,16 +3,18 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.event.*;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable,KeyListener{
     public static final int WIDTH = 1000,HEIGHT = WIDTH/12*9;
     private Thread thread;
     private boolean isRunning;
-    private double secondsPerFrame = 1.0/3.0;
+    private double secondsPerFrame = 1.0/5.0;
     private Snake snake;
 
     public Game() {
         new Window(WIDTH, HEIGHT, "Snake game", this);
+        addKeyListener(this);
     }
 
     public synchronized void start() {
@@ -86,6 +88,7 @@ public class Game extends Canvas implements Runnable{
         Graphics g = bs.getDrawGraphics();
 
         g.setColor(Color.black);
+        // g.clearRect(0, 0, WIDTH, HEIGHT);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         // Things to render start here
         snake.render(g);
@@ -102,4 +105,24 @@ public class Game extends Canvas implements Runnable{
     public static void main(String[] args) {
         new Game();
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println(e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    
 }
