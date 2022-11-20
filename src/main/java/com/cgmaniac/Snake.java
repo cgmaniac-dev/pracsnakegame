@@ -12,6 +12,7 @@ public class Snake {
     private Position velocity;
     private int size;
     private Direction direction;
+    
     private boolean canMove=false;
     
     
@@ -32,7 +33,7 @@ public class Snake {
     public LinkedList<Cell> getSnake() {
         return snake;
     }
-
+    
     public LinkedList<Cell> move(){
         if(canMove){
             switch (direction) {
@@ -114,7 +115,7 @@ public class Snake {
                 snakeP.getSize()
             );
             g2d.setColor(Color.BLACK);
-
+            
             g2d.drawRect(
                 snakeP.getPosition().getX(), 
                 snakeP.getPosition().getY(), 
@@ -127,7 +128,7 @@ public class Snake {
     public void ticks(){
         move();
     }
-
+    
     public Cell getHead(){
         return snake.getFirst();        
     }
@@ -136,4 +137,7 @@ public class Snake {
         this.direction = direction;
     }
     
+    public Direction getDirection() {
+        return direction;
+    }
 }

@@ -3,14 +3,17 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.LinkedList;
 import java.awt.event.*;
 
 public class Game extends Canvas implements Runnable,KeyListener{
     public static final int WIDTH = 1000,HEIGHT = 760;
     private Thread thread;
     private boolean isRunning;
-    private double secondsPerFrame = 1.0/1.0;
+    private double secondsPerFrame = 1.0/5.0;
     private Snake snake;
+    private int key =39;
+    LinkedList<Integer> keys = new LinkedList<>(); 
 
     public Game() {
         new Window(WIDTH, HEIGHT, "Snake game", this);
@@ -100,6 +103,17 @@ public class Game extends Canvas implements Runnable,KeyListener{
     }
 
     private void ticks() {
+
+        if (keys.size()>0)key = keys.removeLast();
+        if(key==40&&!snake.getDirection().equals(Direction.UP)){
+            snake.setDirection(Direction.DOWN);
+        }else if (key==38&& !snake.getDirection().equals(Direction.DOWN)){
+            snake.setDirection(Direction.UP);
+        }else if (key==39&& !snake.getDirection().equals(Direction.LEFT)){
+            snake.setDirection(Direction.RIGHT);
+        } else if (key==37&& !snake.getDirection().equals(Direction.RIGHT)){
+            snake.setDirection(Direction.LEFT);
+        }
         snake.ticks();
     }
 
@@ -110,7 +124,10 @@ public class Game extends Canvas implements Runnable,KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
-        System.out.println(e.getKeyCode());
+
+        int localkey = e.getKeyCode();
+        keys.addFirst(localkey);
+        System.out.println(localkey);
     }
 
     @Override
