@@ -44,11 +44,39 @@ public class SnakeTest {
         assertEquals(snakeBodyAndHead.getFirst(), new Cell(new Position(100, 120), 20));
         assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(80, 100), 20));
     }
+    @Test
+    public void getSnakeTurnUpMoveOneTest() {
+        // Prepare
+        Snake snake = new Snake(new Position(100, 100), 20);
 
+        // Act
+        snake.setDirection(Direction.UP);
+        var snakeBodyAndHead = snake.move();
+
+        // Assertion
+        assertEquals(snakeBodyAndHead.getFirst(), new Cell(new Position(100, 80), 20));
+        assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(80, 100), 20));
+    }
+
+    @Test
+    public void getSnakeTurnLeftMoveOneTest() {
+        // Prepare
+        Snake snake = new Snake(new Position(100, 100), 20);
+
+        // Act
+        snake.setDirection(Direction.LEFT);
+        var snakeBodyAndHead = snake.move();
+
+        // Assertion
+        assertEquals(snakeBodyAndHead.getFirst(), new Cell(new Position(80, 100), 20));
+        assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(80, 100), 20));
+    }
     @Test
     public void getSnakeCrossBorder() {
         //Prepare 
         Snake snake = new Snake(new Position(Game.WIDTH-20,100),20);
+        System.out.println(Game.WIDTH);
+        System.out.println(Game.HEIGHT);
 
         //Act
         snake.setDirection(Direction.RIGHT);
