@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+
+import com.cgmaniac.GameObjects.Snake;
+
 import java.awt.event.*;
 
 public class Game extends Canvas implements Runnable,KeyListener{

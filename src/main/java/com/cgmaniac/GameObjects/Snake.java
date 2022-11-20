@@ -1,10 +1,15 @@
-package com.cgmaniac;
+package com.cgmaniac.GameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.util.LinkedList;
+
+import com.cgmaniac.Cell;
+import com.cgmaniac.Direction;
+import com.cgmaniac.Game;
+import com.cgmaniac.Position;
 
 public class Snake {
 
