@@ -11,7 +11,7 @@ import com.cgmaniac.Direction;
 import com.cgmaniac.Game;
 import com.cgmaniac.Position;
 
-public class Snake {
+public class Snake extends GameObject{
 
     private LinkedList<Cell> snake;
     private Position velocity;
