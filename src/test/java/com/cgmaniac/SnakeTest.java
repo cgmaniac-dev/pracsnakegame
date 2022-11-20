@@ -24,6 +24,7 @@ public class SnakeTest {
         Snake snake = new Snake(new Position(100, 100), 20);
 
         // Act
+        snake.setCanMove(true);
         var snakeBodyAndHead = snake.move();
 
         // Assertion
@@ -38,6 +39,7 @@ public class SnakeTest {
 
         // Act
         snake.setDirection(Direction.DOWN);
+        snake.setCanMove(true);
         var snakeBodyAndHead = snake.move();
 
         // Assertion
@@ -51,6 +53,7 @@ public class SnakeTest {
 
         // Act
         snake.setDirection(Direction.UP);
+        snake.setCanMove(true);
         var snakeBodyAndHead = snake.move();
 
         // Assertion
@@ -65,6 +68,7 @@ public class SnakeTest {
 
         // Act
         snake.setDirection(Direction.LEFT);
+        snake.setCanMove(true);
         var snakeBodyAndHead = snake.move();
 
         // Assertion
@@ -72,7 +76,7 @@ public class SnakeTest {
         assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(80, 100), 20));
     }
     @Test
-    public void getSnakeCrossBorder() {
+    public void getSnakeCrossBorderRight() {
         //Prepare 
         Snake snake = new Snake(new Position(Game.WIDTH-20,100),20);
         System.out.println(Game.WIDTH);
@@ -80,11 +84,68 @@ public class SnakeTest {
 
         //Act
         snake.setDirection(Direction.RIGHT);
+        snake.setCanMove(true);
         var snakeBodyAndHead = snake.move();
         System.out.println(snake.getSnake());
 
         //Assertion
         assertEquals(new Cell(new Position(0, 100), 20),snakeBodyAndHead.getFirst() );
         assertEquals( new Cell(new Position(Game.WIDTH-40, 100), 20),snakeBodyAndHead.getLast());
+    }
+
+    @Test
+    public void getSnakeCrossBorderDown() {
+        //Prepare 
+        Snake snake = new Snake(new Position(100,Game.HEIGHT-20),20);
+        System.out.println(Game.WIDTH);
+        System.out.println(Game.HEIGHT);
+
+        //Act
+        snake.setDirection(Direction.DOWN);
+        snake.setCanMove(true);
+        var snakeBodyAndHead = snake.move();
+        System.out.println(snake.getSnake());
+
+        //Assertion
+        assertEquals(new Cell(new Position(100, 0), 20),snakeBodyAndHead.getFirst() );
+        assertEquals( new Cell(new Position(80, Game.HEIGHT-20), 20),snakeBodyAndHead.getLast());
+    }
+
+    @Test
+    public void getSnakeCrossBorderLeft() {
+        //Prepare 
+        Snake snake = new Snake(new Position(40,100),20);
+        System.out.println(Game.WIDTH);
+        System.out.println(Game.HEIGHT);
+
+        //Act
+        snake.setDirection(Direction.LEFT);
+        snake.setCanMove(true);
+        var snakeBodyAndHead = snake.move();
+        snakeBodyAndHead = snake.move();
+        snakeBodyAndHead = snake.move();
+        System.out.println(snake.getSnake());
+
+        //Assertion
+        assertEquals(new Cell(new Position(980, 100), 20),snakeBodyAndHead.getFirst() );
+        assertEquals( new Cell(new Position(20, 100), 20),snakeBodyAndHead.getLast());
+    }
+
+    @Test
+    public void getSnakeCrossBorderUp() {
+        //Prepare 
+        Snake snake = new Snake(new Position(40,0),20);
+        System.out.println(Game.WIDTH);
+        System.out.println(Game.HEIGHT);
+
+        //Act
+        snake.setDirection(Direction.UP);
+        snake.setCanMove(true);
+        var snakeBodyAndHead = snake.move();
+        System.out.println(snake.getSnake());
+
+        //Assertion
+        assertEquals(new Cell(new Position(40, Game.HEIGHT-20), 20),snakeBodyAndHead.getFirst() );
+        assertEquals( new Cell(new Position(20, 0), 20),snakeBodyAndHead.getLast());
     }
 }

@@ -9,7 +9,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
     public static final int WIDTH = 1000,HEIGHT = 760;
     private Thread thread;
     private boolean isRunning;
-    private double secondsPerFrame = 1.0/5.0;
+    private double secondsPerFrame = 1.0/1.0;
     private Snake snake;
 
     public Game() {

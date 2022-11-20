@@ -22,7 +22,7 @@ public class Snake {
         this.snake.addLast(new Cell(new Position(position.getX()-size, position.getY()),size));
         this.snake.addLast(new Cell(new Position(position.getX()-size*2, position.getY()), size));
         this.velocity = new Position(size, 0);
-        this.direction = Direction.DOWN;
+        this.direction = Direction.RIGHT;
     }
     
     public void setCanMove(boolean canMove) {
@@ -74,21 +74,21 @@ public class Snake {
             snake.addFirst(newCell);
         }
 
-        if(y>Game.HEIGHT && direction.equals(Direction.DOWN)){
+        if(y>=Game.HEIGHT && direction.equals(Direction.DOWN)){
             y=0;
             snake.removeFirst();
             var newCell = new Cell(new Position(x, y),size);
             snake.addFirst(newCell);
         }
 
-        if(x<0 && direction.equals(Direction.RIGHT)){
+        if(x<0 && direction.equals(Direction.LEFT)){
             x=Game.WIDTH-size;
             snake.removeFirst();
             var newCell = new Cell(new Position(x, y),size);
             snake.addFirst(newCell);
         }
 
-        if(y<0 && direction.equals(Direction.RIGHT)){
+        if(y<0 && direction.equals(Direction.UP)){
             y=Game.HEIGHT-size;
             snake.removeFirst();
             var newCell = new Cell(new Position(x, y),size);
