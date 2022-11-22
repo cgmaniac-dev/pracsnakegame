@@ -2,6 +2,9 @@ package com.cgmaniac;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Font;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
@@ -20,6 +23,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
     LinkedList<Integer> keys = new LinkedList<>();
     private Apple food;
     private int points;
+    private boolean isGrow;
      
 
     public Game() {
@@ -100,24 +104,34 @@ public class Game extends Canvas implements Runnable,KeyListener{
         }
 
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D)g;
         snake.setCanMove(true);
+        g2d.setRenderingHint(
+         RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.setColor(Color.black);
+        g2d.setColor(Color.black);
         // g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.setColor(Color.BLUE);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.setColor(Color.BLUE);
+        Font font = new Font("Serif", Font.BOLD, 36);
+        g2d.setFont(font);
+        g2d.drawString(String.valueOf(points), 40, 40);
 
-        g.fillRect(0, this.getHeight()-40, 40, 40);
+        // g.fillRect(0, this.getHeight()-40, 40, 40);
         // Things to render start here
-        food.render(g);
-        snake.render(g);
+        food.render(g2d);
+        snake.render(g2d);
 
         // Things to render ends here
-        g.dispose();
+        g2d.dispose();
         bs.show();
     }
 
     private void ticks() {
+        if(isGrow){
+            snake.grow();
+            isGrow=false;
+        }
 
         if (keys.size()>0)key = keys.removeLast();
         if(key==40&&!snake.getDirection().equals(Direction.UP)){
@@ -129,12 +143,13 @@ public class Game extends Canvas implements Runnable,KeyListener{
         } else if (key==37&& !snake.getDirection().equals(Direction.RIGHT)){
             snake.setDirection(Direction.LEFT);
         }
+
         food.ticks();
         snake.ticks();
         if(snake.getHead().equals(food.getBody())){
             points +=food.getPoints();
             food.spawnFood(snake);
-            snake.grow();
+            isGrow=true;
         }
     }
 
@@ -148,7 +163,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 
         int localkey = e.getKeyCode();
         keys.addFirst(localkey);
-        System.out.println(localkey);
+        // System.out.println(localkey);
     }
 
     @Override

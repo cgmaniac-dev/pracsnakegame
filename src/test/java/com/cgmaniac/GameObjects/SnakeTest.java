@@ -172,5 +172,38 @@ public class SnakeTest {
         assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(60, 100), 20));
     }
 
+    @Test
+    public void getSnakeCollisionToItSelf() {
+        //Prepare 
+        Snake snake = new Snake(new Position(100, 100), 20);
+        // Act
+        snake.setCanMove(true);
+
+        snake.grow();
+        snake.move();
+        Boolean collision =  snake.checkSelfCollision();
+        assertFalse(collision);
+
+        snake.grow();
+        snake.move();
+        collision =  snake.checkSelfCollision();
+        assertFalse(collision);
+
+        snake.setDirection(Direction.DOWN);
+        snake.move();
+        collision =  snake.checkSelfCollision();
+        assertFalse(collision);
+
+        snake.setDirection(Direction.LEFT);
+        snake.move();
+        collision =  snake.checkSelfCollision();
+        assertFalse(collision);
+
+        snake.setDirection(Direction.UP);
+        snake.move();
+        collision =  snake.checkSelfCollision();
+        assertTrue(collision);
+
+    }
     
 }
