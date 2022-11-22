@@ -14,6 +14,7 @@ public class Window extends Canvas {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.add(game);
+        game.setSize(new Dimension(width,width));
         frame.setVisible(true);
         game.start();
     }

@@ -138,11 +138,56 @@ public class Snake extends GameObject{
         return snake.getFirst();        
     }
 
+    public Cell getTail(){
+        return snake.getLast();
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
     
     public Direction getDirection() {
         return direction;
+    }
+
+    public Direction getTailDirection() {
+        int x1,x2,x3,y1,y2,y3;
+        x1 = getTail().getPosition().getX();
+        x2 = getSnake().get(getSnake().size()-2).getPosition().getX();
+        x3 = getSnake().get(getSnake().size()-3).getPosition().getX(); 
+        
+        y1 = getTail().getPosition().getY();
+        y2 = getSnake().get(getSnake().size()-2).getPosition().getY();
+        y3 = getSnake().get(getSnake().size()-3).getPosition().getY(); 
+        
+        System.out.println("x1="+x1+", y1="+y1);
+        System.out.println("x2="+x2+", y2="+y2);
+        System.out.println("x3="+x3+", y3="+y3);
+
+        if((y1==y2 && y2==y3)||(y1==y2 && x2==x3)){
+            if(x1<x2||(x2<x1&&x2==x3)){
+                return Direction.RIGHT;   
+            }else{
+                return Direction.LEFT;   
+            }
+        }
+
+        if((x1==x2 && x2==x3)||(x1==x2 && y2==y3)){
+            if(y1>y2){
+                return Direction.UP;   
+            }else{
+                return Direction.DOWN;   
+            }
+        }
+        return Direction.UP;
+    }
+
+    public  LinkedList<Cell> grow() {
+        var x = getTail().getPosition().getX();
+        var y = getTail().getPosition().getY();
+
+        Cell newTail = new Cell(new Position(x+20, y), size);
+        snake.addLast(newTail);
+        return this.snake;
     }
 }

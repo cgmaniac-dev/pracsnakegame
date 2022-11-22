@@ -5,29 +5,37 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
+import com.cgmaniac.GameObjects.Apple;
 import com.cgmaniac.GameObjects.Snake;
 
 import java.awt.event.*;
 
 public class Game extends Canvas implements Runnable,KeyListener{
-    public static final int WIDTH = 1000,HEIGHT = 760;
+    public static final int WIDTH = 1000,HEIGHT = 740;
     private Thread thread;
     private boolean isRunning;
     private double secondsPerFrame = 1.0/5.0;
     private Snake snake;
     private int key =39;
-    LinkedList<Integer> keys = new LinkedList<>(); 
+    LinkedList<Integer> keys = new LinkedList<>();
+    private Apple food;
+    private int points;
+     
 
     public Game() {
-        new Window(WIDTH, HEIGHT, "Snake game", this);
+        new Window(WIDTH, HEIGHT+37, "Snake game", this);
         addKeyListener(this);
     }
-
+    
     public synchronized void start() {
         thread = new Thread(this);
         thread.start();
         isRunning = true;
         snake = new Snake(new Position(100, 100),20);
+        food = new Apple(20);
+        food.spawnFood(snake);
+        System.out.println(this.getSize());
+        points =0;
     }
 
     public synchronized void stop(){
@@ -96,8 +104,12 @@ public class Game extends Canvas implements Runnable,KeyListener{
 
         g.setColor(Color.black);
         // g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.setColor(Color.BLUE);
+
+        g.fillRect(0, this.getHeight()-40, 40, 40);
         // Things to render start here
+        food.render(g);
         snake.render(g);
 
         // Things to render ends here
@@ -117,7 +129,13 @@ public class Game extends Canvas implements Runnable,KeyListener{
         } else if (key==37&& !snake.getDirection().equals(Direction.RIGHT)){
             snake.setDirection(Direction.LEFT);
         }
+        food.ticks();
         snake.ticks();
+        if(snake.getHead().equals(food.getBody())){
+            points +=food.getPoints();
+            food.spawnFood(snake);
+            snake.grow();
+        }
     }
 
     public static void main(String[] args) {

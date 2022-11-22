@@ -1,10 +1,15 @@
-package com.cgmaniac;
+package com.cgmaniac.GameObjects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.LinkedList;
+
 import org.junit.jupiter.api.Test;
 
-import com.cgmaniac.GameObjects.Snake;
+import com.cgmaniac.Cell;
+import com.cgmaniac.Direction;
+import com.cgmaniac.Game;
+import com.cgmaniac.Position;
 
 public class SnakeTest {
     @Test
@@ -150,4 +155,22 @@ public class SnakeTest {
         assertEquals(new Cell(new Position(40, Game.HEIGHT-20), 20),snakeBodyAndHead.getFirst() );
         assertEquals( new Cell(new Position(20, 0), 20),snakeBodyAndHead.getLast());
     }
+
+    @Test
+    public void getSnakeGrow() {
+        //Prepare 
+        Snake snake = new Snake(new Position(100, 100), 20);
+
+        // Act
+        snake.setCanMove(true);
+        snake.grow();
+
+        LinkedList<Cell> snakeBodyAndHead = snake.move();
+
+        // Assertion
+        assertEquals(snakeBodyAndHead.getFirst(), new Cell(new Position(120, 100), 20));
+        assertEquals(snakeBodyAndHead.getLast(), new Cell(new Position(60, 100), 20));
+    }
+
+    
 }
